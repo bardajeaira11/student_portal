@@ -42,6 +42,9 @@
 
     <!-- Main Content -->
     <div class="container py-4">
+        <?php if (isset($_GET ["message"])){?>
+             <div class = "alert alert|-danger"><?php echo $_GET ["message"];?></div>
+    <?php }?>
 
         <!-- Header Section -->
         <div class="d-flex justify-content-between mb-3">
