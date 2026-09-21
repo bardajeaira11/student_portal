@@ -1,3 +1,34 @@
+<?php 
+session_start();
+include "../../config/database.php";
+
+// Only admin users can access this page
+if(!isset($_SESSION["role"]) || $_SESSION["role"] != "admin"){
+    header("Location:../../index.php");
+    exit;
+}
+
+$message = "";
+
+if(isset($_POST["save"])){
+    $subject_code = trim($_POST['subject_code']);
+    $subject_name = trim($_POST['subject_name']);
+    $units = (int)$_POST['units'];
+
+    // Prepared Statement to prevent SQL Injection
+    $stmt = $conn->prepare("INSERT INTO subjects (subject_code, subject_name, units) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $subject_code, $subject_name, $units);
+
+    if($stmt->execute()){
+        $message = "Subject Created Successfully";
+        header("Location: index.php?message=" . urlencode($message));
+        exit();
+    } else {
+        $message = "Error: " . $stmt->error;
+    }
+    $stmt->close();
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -32,6 +63,12 @@
             <div class="card-body p-4">
 
                 <h2>Subject Form</h2>
+    <?php if($message != ""){ ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo htmlspecialchars($message); ?>
+                    </div>
+                <?php } ?>
+
 
                 <form>
 
