@@ -32,8 +32,11 @@
             <div class="card-body p-4">
 
                 <h2>Student Account Form</h2>
+                <?php if ($message != ""){?>
+                     <div class = "alert alert-danger"> <?php echo $message ;?></div>
+            <?php } ?>
 
-                <form>
+                <form = "POST">
 
                     <!-- Student Number -->
                     <div class="mb-3">
