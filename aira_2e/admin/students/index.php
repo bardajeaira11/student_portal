@@ -43,7 +43,7 @@
     <!-- Main Content -->
     <div class="container py-4">
         <?php if (isset($_GET ["message"])){?>
-             <div class = "alert alert|-danger"><?php echo $_GET ["message"];?></div>
+             <div class = "alert alert|-success"><?php echo $_GET ["message"];?></div>
     <?php }?>
 
         <!-- Header Section -->
